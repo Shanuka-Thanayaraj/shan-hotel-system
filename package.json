@@ -1,0 +1,26 @@
+{
+  "name": "shan-hotel-system",
+  "version": "1.0.0",
+  "description": "Shan Hotel - Live Hotel Management System with Room Booking, Food Orders (Dine-in, Takeaway, Room Service)",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js"
+  },
+  "keywords": [
+    "hotel",
+    "booking",
+    "restaurant",
+    "dine-in",
+    "takeaway",
+    "room-service",
+    "shan-hotel"
+  ],
+  "author": "Shanuka Thanayaraj",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "uuid": "^10.0.0"
+  }
+}
