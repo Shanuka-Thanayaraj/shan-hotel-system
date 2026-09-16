@@ -3,282 +3,291 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shan Hotel | Luxury Stay & Dining</title>
+  <title>Shan Hotel | Management System</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            gold: { 300: '#fcd34d', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' },
-            dark: { 800: '#1a1a1a', 900: '#0f0f0f', 950: '#080808' },
-            cream: '#faf7f2'
+            brand: { 50:'#fff7ed', 100:'#ffedd5', 200:'#fed7aa', 300:'#fdba74', 400:'#fb923c', 500:'#f97316', 600:'#ea580c', 700:'#c2410c' },
+            soft: { 50:'#f8fafc', 100:'#f1f5f9', 200:'#e2e8f0' }
           },
           fontFamily: {
-            display: ['Cormorant Garamond', 'serif'],
-            sans: ['Outfit', 'sans-serif']
-          },
-          animation: {
-            'fade-up': 'fadeUp 0.7s ease-out forwards',
-            'fade-in': 'fadeIn 0.5s ease-out forwards',
-            'slide-right': 'slideRight 0.6s ease-out forwards',
-            'pulse-soft': 'pulseSoft 2.5s ease-in-out infinite',
-            'float': 'float 4s ease-in-out infinite',
-            'shimmer': 'shimmer 2s linear infinite'
-          },
-          keyframes: {
-            fadeUp: {
-              '0%': { opacity: '0', transform: 'translateY(30px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' }
-            },
-            fadeIn: {
-              '0%': { opacity: '0' },
-              '100%': { opacity: '1' }
-            },
-            slideRight: {
-              '0%': { opacity: '0', transform: 'translateX(-20px)' },
-              '100%': { opacity: '1', transform: 'translateX(0)' }
-            },
-            pulseSoft: {
-              '0%, 100%': { opacity: '1' },
-              '50%': { opacity: '0.6' }
-            },
-            float: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-8px)' }
-            },
-            shimmer: {
-              '0%': { backgroundPosition: '-200% 0' },
-              '100%': { backgroundPosition: '200% 0' }
-            }
+            display: ['Fraunces', 'serif'],
+            sans: ['DM Sans', 'sans-serif']
           }
         }
       }
     }
   </script>
   <style>
-    * { scroll-behavior: smooth; }
-    body { font-family: 'Outfit', sans-serif; background: #0f0f0f; color: #faf7f2; }
-    .font-display { font-family: 'Cormorant Garamond', serif; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #1a1a1a; }
-    ::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 3px; }
-    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.08); }
-    .glass-strong { background: rgba(255,255,255,0.07); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.12); }
-    .text-gold-gradient { background: linear-gradient(135deg, #fcd34d, #f59e0b, #b45309); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .gold-border { position: relative; }
-    .gold-border::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, #fbbf24, transparent 40%, transparent 60%, #f59e0b); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
-    .hover-lift { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease; }
-    .hover-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(245, 158, 11, 0.15); }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px currentColor; }
-    .delay-100 { animation-delay: 0.1s; opacity: 0; }
-    .delay-200 { animation-delay: 0.2s; opacity: 0; }
-    .delay-300 { animation-delay: 0.3s; opacity: 0; }
-    .delay-400 { animation-delay: 0.4s; opacity: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #f8fafc; }
+    .font-display { font-family: 'Fraunces', serif; }
     .view { display: none; }
-    .view.active { display: block; animation: fadeUp 0.5s ease-out; }
-    .modal-overlay { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s; }
-    .modal-overlay.open { opacity: 1; visibility: visible; }
-    .modal-content { transform: scale(0.92) translateY(20px); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
-    .modal-overlay.open .modal-content { transform: scale(1) translateY(0); }
-    .nav-btn { position: relative; }
-    .nav-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 20px; height: 2px; background: #f59e0b; border-radius: 2px; }
-    .shimmer-bg { background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
-    .hero-pattern { background-image: radial-gradient(ellipse at 20% 50%, rgba(245, 158, 11, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(251, 191, 36, 0.06) 0%, transparent 40%), radial-gradient(ellipse at 60% 80%, rgba(180, 83, 9, 0.05) 0%, transparent 40%); }
-    .room-gradient-standard { background: linear-gradient(135deg, #1e293b, #334155); }
-    .room-gradient-deluxe { background: linear-gradient(135deg, #1e3a5f, #1e40af); }
-    .room-gradient-suite { background: linear-gradient(135deg, #3b1f4a, #7c3aed); }
-    .room-gradient-presidential { background: linear-gradient(135deg, #4a2c0a, #b45309); }
+    .view.active { display: block; animation: fadeIn 0.35s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse-dot { 0%,100%{ opacity:1 } 50%{ opacity:0.4 } }
+    .nav-btn.active { background: #fff7ed; color: #ea580c; }
+    .nav-btn.active i { color: #ea580c; }
+    .modal-bg { opacity: 0; visibility: hidden; transition: all 0.25s; }
+    .modal-bg.open { opacity: 1; visibility: visible; }
+    .modal-box { transform: scale(0.95) translateY(10px); transition: transform 0.25s ease; }
+    .modal-bg.open .modal-box { transform: scale(1) translateY(0); }
+    .card { transition: transform 0.2s, box-shadow 0.2s; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1); }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: #fdba74; border-radius: 3px; }
+    .live-dot { animation: pulse-dot 2s infinite; }
   </style>
 </head>
-<body class="bg-dark-900 min-h-screen overflow-x-hidden">
+<body class="bg-soft-50 min-h-screen text-slate-800">
 
-  <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
-    <div class="glass-strong">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 sm:h-18 items-center">
-          <div class="flex items-center gap-3 cursor-pointer" onclick="showView('dashboard')">
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-gold-400 to-gold-700 flex items-center justify-center shadow-lg shadow-gold-500/20 animate-float">
-              <i class="fas fa-hotel text-dark-900 text-lg"></i>
-            </div>
-            <div>
-              <h1 class="font-display text-xl sm:text-2xl font-bold text-cream tracking-wide">Shan Hotel</h1>
-              <p class="text-[10px] text-gold-400 tracking-[0.2em] uppercase -mt-0.5 hidden sm:block">Luxury & Comfort</p>
-            </div>
+  <nav class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center justify-between h-14">
+        <div class="flex items-center gap-2.5 cursor-pointer" onclick="showView('dashboard')">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shadow-md shadow-brand-200">
+            <i class="fas fa-hotel text-white text-sm"></i>
           </div>
-          <div class="hidden lg:flex items-center gap-1">
-            <button onclick="showView('dashboard')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-cream/70 hover:text-gold-400 transition-colors duration-200" data-view="dashboard"><i class="fas fa-chart-pie mr-1.5 text-xs"></i>Dashboard</button>
-            <button onclick="showView('rooms')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-cream/70 hover:text-gold-400 transition-colors duration-200" data-view="rooms"><i class="fas fa-bed mr-1.5 text-xs"></i>Rooms</button>
-            <button onclick="showView('bookings')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-cream/70 hover:text-gold-400 transition-colors duration-200" data-view="bookings"><i class="fas fa-calendar-check mr-1.5 text-xs"></i>Bookings</button>
-            <button onclick="showView('menu')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-cream/70 hover:text-gold-400 transition-colors duration-200" data-view="menu"><i class="fas fa-utensils mr-1.5 text-xs"></i>Dining</button>
-            <button onclick="showView('orders')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-cream/70 hover:text-gold-400 transition-colors duration-200" data-view="orders"><i class="fas fa-receipt mr-1.5 text-xs"></i>Orders</button>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full glass">
-              <span class="status-dot bg-emerald-400 animate-pulse-soft"></span>
-              <span class="text-xs font-medium text-emerald-400">Live</span>
-            </div>
-            <button onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 rounded-xl glass flex items-center justify-center text-cream/80 hover:text-gold-400 transition">
-              <i class="fas fa-bars" id="menu-icon"></i>
-            </button>
-          </div>
+          <span class="font-display font-bold text-lg text-slate-800">Shan Hotel</span>
+        </div>
+        <div class="hidden md:flex items-center gap-1">
+          <button onclick="showView('dashboard')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition" data-view="dashboard"><i class="fas fa-th-large mr-1.5 text-xs"></i>Dashboard</button>
+          <button onclick="showView('rooms')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition" data-view="rooms"><i class="fas fa-bed mr-1.5 text-xs"></i>Rooms</button>
+          <button onclick="showView('bookings')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition" data-view="bookings"><i class="fas fa-calendar-check mr-1.5 text-xs"></i>Bookings</button>
+          <button onclick="showView('menu')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition" data-view="menu"><i class="fas fa-utensils mr-1.5 text-xs"></i>Dining</button>
+          <button onclick="showView('orders')" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition" data-view="orders"><i class="fas fa-receipt mr-1.5 text-xs"></i>Orders</button>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 live-dot"></span> Live
+          </span>
+          <button onclick="toggleMobile()" class="md:hidden w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600">
+            <i class="fas fa-bars" id="menuIcon"></i>
+          </button>
         </div>
       </div>
     </div>
-    <div id="mobile-menu" class="lg:hidden hidden glass-strong border-t border-white/5">
-      <div class="px-4 py-3 space-y-1">
-        <button onclick="showView('dashboard');toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-cream/80 hover:bg-white/5 hover:text-gold-400 transition flex items-center gap-3"><i class="fas fa-chart-pie w-5 text-center"></i> Dashboard</button>
-        <button onclick="showView('rooms');toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-cream/80 hover:bg-white/5 hover:text-gold-400 transition flex items-center gap-3"><i class="fas fa-bed w-5 text-center"></i> Rooms</button>
-        <button onclick="showView('bookings');toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-cream/80 hover:bg-white/5 hover:text-gold-400 transition flex items-center gap-3"><i class="fas fa-calendar-check w-5 text-center"></i> Bookings</button>
-        <button onclick="showView('menu');toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-cream/80 hover:bg-white/5 hover:text-gold-400 transition flex items-center gap-3"><i class="fas fa-utensils w-5 text-center"></i> Dining</button>
-        <button onclick="showView('orders');toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-cream/80 hover:bg-white/5 hover:text-gold-400 transition flex items-center gap-3"><i class="fas fa-receipt w-5 text-center"></i> Orders</button>
-      </div>
+    <div id="mobileMenu" class="hidden md:hidden border-t border-slate-100 bg-white px-4 py-2 space-y-0.5">
+      <button onclick="showView('dashboard');toggleMobile()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-brand-50">Dashboard</button>
+      <button onclick="showView('rooms');toggleMobile()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-brand-50">Rooms</button>
+      <button onclick="showView('bookings');toggleMobile()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-brand-50">Bookings</button>
+      <button onclick="showView('menu');toggleMobile()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-brand-50">Dining</button>
+      <button onclick="showView('orders');toggleMobile()" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-brand-50">Orders</button>
     </div>
   </nav>
 
-  <main class="pt-20 sm:pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-
+  <main class="max-w-6xl mx-auto px-4 py-6">
     <div id="view-dashboard" class="view active">
-      <div class="relative rounded-3xl overflow-hidden mb-10 gold-border hero-pattern animate-fade-up">
-        <div class="absolute inset-0 bg-gradient-to-r from-dark-950 via-dark-900/90 to-transparent"></div>
-        <div class="relative px-6 sm:px-10 py-12 sm:py-16">
-          <p class="text-gold-400 text-sm font-medium tracking-[0.25em] uppercase mb-3 animate-slide-right delay-100">Welcome to</p>
-          <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-cream mb-3 animate-fade-up delay-200">Shan Hotel</h2>
-          <p class="text-cream/60 text-base sm:text-lg max-w-md mb-8 animate-fade-up delay-300">Experience luxury stays, fine dining, and seamless service — all managed in real time.</p>
-          <div class="flex flex-wrap gap-3 animate-fade-up delay-400">
-            <button onclick="showView('rooms')" class="px-6 py-3 bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 font-semibold rounded-xl hover:from-gold-400 hover:to-gold-500 transition-all duration-300 shadow-lg shadow-gold-500/25 hover:shadow-gold-500/40 hover:scale-105"><i class="fas fa-bed mr-2"></i>Browse Rooms</button>
-            <button onclick="showView('menu')" class="px-6 py-3 glass text-cream font-medium rounded-xl hover:bg-white/10 transition-all duration-300"><i class="fas fa-utensils mr-2"></i>Order Food</button>
-          </div>
-        </div>
-        <div class="absolute top-6 right-6 w-24 h-24 rounded-full bg-gold-500/10 blur-2xl"></div>
-        <div class="absolute bottom-4 right-20 w-32 h-32 rounded-full bg-gold-400/5 blur-3xl"></div>
+      <div class="mb-6">
+        <h1 class="font-display text-2xl font-bold text-slate-800">Dashboard</h1>
+        <p class="text-sm text-slate-400 mt-0.5">Shan Hotel — live overview</p>
       </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10" id="stats-grid"></div>
-      <div class="grid lg:grid-cols-2 gap-6">
-        <div class="glass rounded-2xl p-6 animate-fade-up delay-200">
-          <div class="flex items-center justify-between mb-5">
-            <h3 class="font-display text-xl font-semibold text-cream flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold-500/20 flex items-center justify-center"><i class="fas fa-calendar-check text-gold-400 text-sm"></i></span>Recent Bookings</h3>
-            <button onclick="showView('bookings')" class="text-xs text-gold-400 hover:text-gold-300 transition">View all →</button>
+      <div id="stats-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6"></div>
+      <div class="grid lg:grid-cols-2 gap-4">
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-semibold text-slate-700 text-sm"><i class="fas fa-calendar-check text-brand-500 mr-2"></i>Recent Bookings</h2>
+            <button onclick="showView('bookings')" class="text-xs text-brand-500 hover:underline">View all</button>
           </div>
-          <div id="recent-bookings" class="space-y-3 max-h-80 overflow-y-auto"><div class="shimmer-bg h-16 rounded-xl"></div><div class="shimmer-bg h-16 rounded-xl"></div></div>
+          <div id="recent-bookings" class="space-y-2"></div>
         </div>
-        <div class="glass rounded-2xl p-6 animate-fade-up delay-300">
-          <div class="flex items-center justify-between mb-5">
-            <h3 class="font-display text-xl font-semibold text-cream flex items-center gap-2"><span class="w-8 h-8 rounded-lg bg-gold-500/20 flex items-center justify-center"><i class="fas fa-bell text-gold-400 text-sm"></i></span>Live Orders</h3>
-            <button onclick="showView('orders')" class="text-xs text-gold-400 hover:text-gold-300 transition">View all →</button>
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-semibold text-slate-700 text-sm"><i class="fas fa-bell text-brand-500 mr-2"></i>Live Orders</h2>
+            <button onclick="showView('orders')" class="text-xs text-brand-500 hover:underline">View all</button>
           </div>
-          <div id="live-orders" class="space-y-3 max-h-80 overflow-y-auto"><div class="shimmer-bg h-16 rounded-xl"></div><div class="shimmer-bg h-16 rounded-xl"></div></div>
+          <div id="live-orders" class="space-y-2"></div>
         </div>
       </div>
     </div>
 
     <div id="view-rooms" class="view">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-        <div><p class="text-gold-400 text-xs font-medium tracking-[0.2em] uppercase mb-1">Accommodation</p><h2 class="font-display text-3xl sm:text-4xl font-bold text-cream">Our Rooms</h2></div>
-        <select id="room-filter" onchange="filterRooms()" class="px-4 py-2.5 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none appearance-none cursor-pointer">
-          <option value="all">All Rooms</option><option value="available">Available</option><option value="booked">Booked</option><option value="occupied">Occupied</option>
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="font-display text-2xl font-bold text-slate-800">Rooms</h1>
+          <p class="text-sm text-slate-400 mt-0.5">Manage room status</p>
+        </div>
+        <select id="room-filter" onchange="filterRooms()" class="text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-brand-300 outline-none">
+          <option value="all">All</option>
+          <option value="available">Available</option>
+          <option value="booked">Booked</option>
+          <option value="occupied">Occupied</option>
         </select>
       </div>
-      <div id="rooms-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+      <div id="rooms-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
 
     <div id="view-bookings" class="view">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-        <div><p class="text-gold-400 text-xs font-medium tracking-[0.2em] uppercase mb-1">Reservations</p><h2 class="font-display text-3xl sm:text-4xl font-bold text-cream">Bookings</h2></div>
-        <button onclick="openBookingModal()" class="px-5 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 font-semibold rounded-xl hover:from-gold-400 hover:to-gold-500 transition-all duration-300 shadow-lg shadow-gold-500/20 hover:scale-105 flex items-center gap-2"><i class="fas fa-plus text-sm"></i> New Booking</button>
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="font-display text-2xl font-bold text-slate-800">Bookings</h1>
+          <p class="text-sm text-slate-400 mt-0.5">Reservations & check-in</p>
+        </div>
+        <button onclick="openBookingModal()" class="bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg shadow-md shadow-brand-200 transition flex items-center gap-1.5">
+          <i class="fas fa-plus text-xs"></i> New Booking
+        </button>
       </div>
-      <div class="glass rounded-2xl overflow-hidden">
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-sm">
-            <thead><tr class="border-b border-white/5">
-              <th class="text-left px-5 py-4 text-cream/50 font-medium text-xs uppercase tracking-wider">Guest</th>
-              <th class="text-left px-5 py-4 text-cream/50 font-medium text-xs uppercase tracking-wider">Room</th>
-              <th class="text-left px-5 py-4 text-cream/50 font-medium text-xs uppercase tracking-wider">Check-in</th>
-              <th class="text-left px-5 py-4 text-cream/50 font-medium text-xs uppercase tracking-wider">Check-out</th>
-              <th class="text-left px-5 py-4 text-cream/50 font-medium text-xs uppercase tracking-wider">Amount</th>
-              <th class="text-left px-5 py-4 text-cream/50 font-medium text-xs uppercase tracking-wider">Status</th>
-              <th class="text-left px-5 py-4 text-cream/50 font-medium text-xs uppercase tracking-wider">Actions</th>
-            </tr></thead>
-            <tbody id="bookings-table" class="divide-y divide-white/5"></tbody>
+            <thead class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
+              <tr>
+                <th class="text-left px-4 py-3 font-medium">Guest</th>
+                <th class="text-left px-4 py-3 font-medium">Room</th>
+                <th class="text-left px-4 py-3 font-medium">Check-in</th>
+                <th class="text-left px-4 py-3 font-medium">Check-out</th>
+                <th class="text-left px-4 py-3 font-medium">Amount</th>
+                <th class="text-left px-4 py-3 font-medium">Status</th>
+                <th class="text-left px-4 py-3 font-medium">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-table" class="divide-y divide-slate-100"></tbody>
           </table>
         </div>
       </div>
     </div>
 
     <div id="view-menu" class="view">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-        <div><p class="text-gold-400 text-xs font-medium tracking-[0.2em] uppercase mb-1">Restaurant</p><h2 class="font-display text-3xl sm:text-4xl font-bold text-cream">Dining Menu</h2></div>
-        <button onclick="openCart()" class="relative px-5 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 font-semibold rounded-xl hover:from-gold-400 hover:to-gold-500 transition-all duration-300 shadow-lg shadow-gold-500/20 hover:scale-105 flex items-center gap-2"><i class="fas fa-shopping-bag text-sm"></i> Cart<span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold hidden shadow-lg">0</span></button>
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="font-display text-2xl font-bold text-slate-800">Dining Menu</h1>
+          <p class="text-sm text-slate-400 mt-0.5">Dine-in · Takeaway · Room Service</p>
+        </div>
+        <button onclick="openCart()" class="relative bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold px-4 py-2.5 rounded-lg shadow-md shadow-brand-200 transition flex items-center gap-1.5">
+          <i class="fas fa-shopping-bag text-xs"></i> Cart
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold hidden">0</span>
+        </button>
       </div>
-      <div id="menu-categories" class="flex flex-wrap gap-2 mb-8"></div>
-      <div id="menu-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      <div id="menu-categories" class="flex flex-wrap gap-2 mb-5"></div>
+      <div id="menu-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
     </div>
 
     <div id="view-orders" class="view">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-        <div><p class="text-gold-400 text-xs font-medium tracking-[0.2em] uppercase mb-1">Kitchen</p><h2 class="font-display text-3xl sm:text-4xl font-bold text-cream">Live Orders</h2></div>
-        <select id="order-filter" onchange="filterOrders()" class="px-4 py-2.5 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none">
-          <option value="all">All Orders</option><option value="pending">Pending</option><option value="preparing">Preparing</option><option value="ready">Ready</option><option value="delivered">Delivered</option>
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="font-display text-2xl font-bold text-slate-800">Orders</h1>
+          <p class="text-sm text-slate-400 mt-0.5">Kitchen & service board</p>
+        </div>
+        <select id="order-filter" onchange="filterOrders()" class="text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-brand-300 outline-none">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="preparing">Preparing</option>
+          <option value="ready">Ready</option>
+          <option value="delivered">Delivered</option>
         </select>
       </div>
-      <div id="orders-list" class="space-y-4"></div>
+      <div id="orders-list" class="space-y-3"></div>
     </div>
   </main>
 
-  <div id="booking-modal" class="modal-overlay fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-    <div class="modal-content glass-strong rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl">
-      <div class="p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-900/80 backdrop-blur-xl z-10">
-        <div><p class="text-gold-400 text-xs tracking-wider uppercase">Reservation</p><h3 class="font-display text-2xl font-semibold text-cream">New Booking</h3></div>
-        <button onclick="closeBookingModal()" class="w-9 h-9 rounded-xl glass flex items-center justify-center text-cream/60 hover:text-cream transition"><i class="fas fa-times"></i></button>
+  <div id="booking-modal" class="modal-bg fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+    <div class="modal-box bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white">
+        <h3 class="font-display font-bold text-lg">New Booking</h3>
+        <button onclick="closeBookingModal()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500"><i class="fas fa-times text-sm"></i></button>
       </div>
-      <form id="booking-form" class="p-6 space-y-4" onsubmit="submitBooking(event)">
-        <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Select Room *</label><select id="booking-room" required class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none"><option value="">Choose available room...</option></select></div>
-        <div class="grid grid-cols-2 gap-3">
-          <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Guest Name *</label><input type="text" id="guest-name" required class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none placeholder:text-cream/30" placeholder="Full name"></div>
-          <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Phone *</label><input type="tel" id="guest-phone" required class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none placeholder:text-cream/30" placeholder="07X XXX XXXX"></div>
-        </div>
-        <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Email</label><input type="email" id="guest-email" class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none placeholder:text-cream/30" placeholder="email@example.com"></div>
-        <div class="grid grid-cols-2 gap-3">
-          <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Check-in *</label><input type="date" id="check-in" required class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none"></div>
-          <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Check-out *</label><input type="date" id="check-out" required class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none"></div>
+      <form id="booking-form" class="p-5 space-y-3.5" onsubmit="submitBooking(event)">
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Room *</label>
+          <select id="booking-room" required class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none"></select>
         </div>
         <div class="grid grid-cols-2 gap-3">
-          <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Adults</label><input type="number" id="adults" min="1" value="1" class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none"></div>
-          <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Children</label><input type="number" id="children" min="0" value="0" class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none"></div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Guest Name *</label>
+            <input type="text" id="guest-name" required class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none" placeholder="Full name">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Phone *</label>
+            <input type="tel" id="guest-phone" required class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none" placeholder="07X XXX XXXX">
+          </div>
         </div>
-        <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Special Requests</label><textarea id="special-requests" rows="2" class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none placeholder:text-cream/30 resize-none" placeholder="Any special requests..."></textarea></div>
-        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 font-semibold rounded-xl hover:from-gold-400 hover:to-gold-500 transition-all duration-300 shadow-lg shadow-gold-500/25 hover:scale-[1.02]">Confirm Booking</button>
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Email</label>
+          <input type="email" id="guest-email" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none" placeholder="email@example.com">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Check-in *</label>
+            <input type="date" id="check-in" required class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Check-out *</label>
+            <input type="date" id="check-out" required class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Adults</label>
+            <input type="number" id="adults" min="1" value="1" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Children</label>
+            <input type="number" id="children" min="0" value="0" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Special Requests</label>
+          <textarea id="special-requests" rows="2" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none resize-none" placeholder="Optional..."></textarea>
+        </div>
+        <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-semibold py-3 rounded-lg transition shadow-md shadow-brand-200">Confirm Booking</button>
       </form>
     </div>
   </div>
 
-  <div id="cart-modal" class="modal-overlay fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-    <div class="modal-content glass-strong rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl">
-      <div class="p-6 border-b border-white/5 flex items-center justify-between sticky top-0 bg-dark-900/80 backdrop-blur-xl z-10">
-        <div><p class="text-gold-400 text-xs tracking-wider uppercase">Your Order</p><h3 class="font-display text-2xl font-semibold text-cream">Cart</h3></div>
-        <button onclick="closeCart()" class="w-9 h-9 rounded-xl glass flex items-center justify-center text-cream/60 hover:text-cream transition"><i class="fas fa-times"></i></button>
+  <div id="cart-modal" class="modal-bg fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+    <div class="modal-box bg-white rounded-2xl shadow-2xl w-full max-w-sm max-h-[90vh] overflow-y-auto">
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white">
+        <h3 class="font-display font-bold text-lg">Your Cart</h3>
+        <button onclick="closeCart()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500"><i class="fas fa-times text-sm"></i></button>
       </div>
-      <div class="p-6">
-        <div id="cart-items" class="space-y-3 mb-5 max-h-48 overflow-y-auto"><p class="text-cream/40 text-sm text-center py-6">Cart is empty</p></div>
-        <div class="border-t border-white/5 pt-5 space-y-4">
-          <div class="flex justify-between items-center"><span class="text-cream/60">Total</span><span id="cart-total" class="font-display text-2xl font-bold text-gold-400">Rs. 0</span></div>
-          <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Order Type *</label><select id="order-type" onchange="toggleOrderFields()" class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none"><option value="dine-in">🍽️ Dine-in (Restaurant)</option><option value="takeaway">🛍️ Takeaway</option><option value="room-service">🛎️ Room Service</option></select></div>
-          <div id="table-field"><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Table Number *</label><input type="text" id="table-number" class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none placeholder:text-cream/30" placeholder="e.g. T5"></div>
-          <div id="room-field" class="hidden"><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Room Number *</label><input type="text" id="order-room-number" class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none placeholder:text-cream/30" placeholder="e.g. 201"></div>
-          <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Customer Name</label><input type="text" id="order-customer-name" class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none placeholder:text-cream/30" placeholder="Guest name"></div>
-          <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Phone</label><input type="tel" id="order-customer-phone" class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none placeholder:text-cream/30" placeholder="Contact number"></div>
-          <div><label class="block text-xs font-medium text-cream/50 uppercase tracking-wider mb-1.5">Notes</label><input type="text" id="order-notes" class="w-full px-4 py-3 bg-dark-800 border border-white/10 rounded-xl text-sm text-cream focus:ring-2 focus:ring-gold-500/50 outline-none placeholder:text-cream/30" placeholder="Special instructions..."></div>
-          <button onclick="placeOrder()" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 font-semibold rounded-xl hover:from-gold-400 hover:to-gold-500 transition-all duration-300 shadow-lg shadow-gold-500/25 hover:scale-[1.02]">Place Order</button>
+      <div class="p-5">
+        <div id="cart-items" class="space-y-2 mb-4 max-h-40 overflow-y-auto"><p class="text-slate-300 text-sm text-center py-4">Cart is empty</p></div>
+        <div class="border-t border-slate-100 pt-4 space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-slate-500">Total</span>
+            <span id="cart-total" class="font-bold text-lg text-brand-600">Rs. 0</span>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Order Type *</label>
+            <select id="order-type" onchange="toggleOrderFields()" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none">
+              <option value="dine-in">Dine-in</option>
+              <option value="takeaway">Takeaway</option>
+              <option value="room-service">Room Service</option>
+            </select>
+          </div>
+          <div id="table-field">
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Table Number *</label>
+            <input type="text" id="table-number" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none" placeholder="e.g. T5">
+          </div>
+          <div id="room-field" class="hidden">
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Room Number *</label>
+            <input type="text" id="order-room-number" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none" placeholder="e.g. 201">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Customer Name</label>
+            <input type="text" id="order-customer-name" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none" placeholder="Guest">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Phone</label>
+            <input type="tel" id="order-customer-phone" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none" placeholder="Contact">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 mb-1">Notes</label>
+            <input type="text" id="order-notes" class="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-300 outline-none" placeholder="Special notes...">
+          </div>
+          <button onclick="placeOrder()" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-semibold py-3 rounded-lg transition shadow-md shadow-brand-200">Place Order</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="toast" class="fixed bottom-6 right-6 z-[70] px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-400 glass-strong border border-white/10">
-    <i class="fas fa-check-circle text-emerald-400 text-lg" id="toast-icon"></i>
-    <span id="toast-msg" class="text-sm font-medium text-cream">Success</span>
+  <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 transform translate-y-20 opacity-0 transition-all duration-300 text-sm">
+    <i class="fas fa-check-circle text-emerald-400" id="toast-icon"></i>
+    <span id="toast-msg">Done</span>
   </div>
 
   <script src="app.js"></script>
